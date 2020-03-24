@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblGroup: UILabel!
     
-    var dicMessage : [String: String?] = [:]
+    var dicMessage : [String: Any?] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,5 +24,5 @@ class DetailViewController: UIViewController {
         txtMessage.text = (dicMessage["content"] as? String ?? "")
         lblTime.text = (dicMessage["created"] as? String ?? "")
         lblGroup.text = (dicMessage["group"] as? String ?? "")
-    }    
+    }
 }

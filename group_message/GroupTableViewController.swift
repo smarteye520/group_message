@@ -130,7 +130,6 @@ class GroupTableViewController: UITableViewController {
         return UITableViewCell()
     }
     
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let currentCell = tableView.cellForRow(at: indexPath) as! GroupTableViewCell
@@ -145,6 +144,7 @@ class GroupTableViewController: UITableViewController {
             aryTmpGroupId.append(groupid)
         }
     }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

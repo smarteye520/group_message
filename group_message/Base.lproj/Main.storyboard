@@ -50,8 +50,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JfE-YN-rrQ">
-                                            <rect key="frame" x="20" y="40" width="374" height="56"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JfE-YN-rrQ">
+                                            <rect key="frame" x="17" y="40" width="380" height="56"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -66,12 +66,12 @@
                                         <constraint firstItem="jtI-qc-lUo" firstAttribute="top" secondItem="SWs-wZ-fWp" secondAttribute="top" constant="10" id="G5L-CP-FQ1"/>
                                         <constraint firstItem="1Pi-EV-GHn" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="20" id="GQ6-vk-iYj"/>
                                         <constraint firstAttribute="trailing" secondItem="1Pi-EV-GHn" secondAttribute="trailing" constant="20" id="d6V-Y5-Ynb"/>
-                                        <constraint firstAttribute="trailing" secondItem="JfE-YN-rrQ" secondAttribute="trailing" constant="20" id="dz0-vn-POS"/>
+                                        <constraint firstAttribute="trailing" secondItem="JfE-YN-rrQ" secondAttribute="trailing" constant="17" id="dz0-vn-POS"/>
                                         <constraint firstItem="rTj-9H-Yks" firstAttribute="top" secondItem="1Pi-EV-GHn" secondAttribute="bottom" constant="8" id="eGG-ii-atB"/>
                                         <constraint firstItem="jtI-qc-lUo" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="20" id="eOL-3g-l5f"/>
                                         <constraint firstItem="JfE-YN-rrQ" firstAttribute="top" secondItem="jtI-qc-lUo" secondAttribute="bottom" constant="6" id="hOl-ac-k06"/>
                                         <constraint firstAttribute="bottom" secondItem="rTj-9H-Yks" secondAttribute="bottom" constant="8" id="q0f-fd-TXp"/>
-                                        <constraint firstItem="JfE-YN-rrQ" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="20" id="xgb-V7-skT"/>
+                                        <constraint firstItem="JfE-YN-rrQ" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="17" id="xgb-V7-skT"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -152,7 +152,7 @@
         <!--Message-->
         <scene sceneID="mHh-GD-fWD">
             <objects>
-                <viewController id="tQc-2i-PJL" customClass="DetailViewController" customModule="Group_Message" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="tQc-2i-PJL" customClass="DetailViewController" customModule="Group_Message" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mBk-33-bgX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,7 +185,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ECg-sJ-vcp">
-                                <rect key="frame" x="20" y="119" width="374" height="643"/>
+                                <rect key="frame" x="18" y="119" width="378" height="643"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -198,7 +198,7 @@
                             <constraint firstItem="5x7-LN-vk9" firstAttribute="trailing" secondItem="FEw-wJ-NUO" secondAttribute="trailing" constant="20" id="19Y-Qm-pHv"/>
                             <constraint firstItem="JuE-9a-JN8" firstAttribute="leading" secondItem="5x7-LN-vk9" secondAttribute="leading" constant="20" id="4zc-yM-guK"/>
                             <constraint firstItem="ASY-8T-Cbt" firstAttribute="top" secondItem="JuE-9a-JN8" secondAttribute="bottom" constant="10" id="CEY-8N-04G"/>
-                            <constraint firstItem="ECg-sJ-vcp" firstAttribute="leading" secondItem="5x7-LN-vk9" secondAttribute="leading" constant="20" id="KX0-1e-cqR"/>
+                            <constraint firstItem="ECg-sJ-vcp" firstAttribute="leading" secondItem="5x7-LN-vk9" secondAttribute="leading" constant="18" id="KX0-1e-cqR"/>
                             <constraint firstItem="FEw-wJ-NUO" firstAttribute="leading" secondItem="5x7-LN-vk9" secondAttribute="leading" constant="20" id="T0i-Fy-LcT"/>
                             <constraint firstItem="ASY-8T-Cbt" firstAttribute="leading" secondItem="5x7-LN-vk9" secondAttribute="leading" constant="20" id="aie-Kq-roY"/>
                             <constraint firstItem="5x7-LN-vk9" firstAttribute="trailing" secondItem="ASY-8T-Cbt" secondAttribute="trailing" constant="20" id="avz-T3-uVF"/>
@@ -206,7 +206,7 @@
                             <constraint firstItem="JuE-9a-JN8" firstAttribute="top" secondItem="ECg-sJ-vcp" secondAttribute="bottom" constant="5" id="lBN-e4-TeJ"/>
                             <constraint firstItem="ECg-sJ-vcp" firstAttribute="top" secondItem="FEw-wJ-NUO" secondAttribute="bottom" constant="10" id="lb3-3h-1Ti"/>
                             <constraint firstItem="5x7-LN-vk9" firstAttribute="trailing" secondItem="JuE-9a-JN8" secondAttribute="trailing" constant="20" id="m2M-NH-9LU"/>
-                            <constraint firstItem="5x7-LN-vk9" firstAttribute="trailing" secondItem="ECg-sJ-vcp" secondAttribute="trailing" constant="20" id="u6l-Xg-GzT"/>
+                            <constraint firstItem="5x7-LN-vk9" firstAttribute="trailing" secondItem="ECg-sJ-vcp" secondAttribute="trailing" constant="18" id="u6l-Xg-GzT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5x7-LN-vk9"/>
                     </view>
