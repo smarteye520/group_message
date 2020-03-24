@@ -17,12 +17,13 @@
 		0424A82524255BA500250EF9 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424A82424255BA500250EF9 /* MessageTableViewCell.swift */; };
 		047078E924257819000AE0E8 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047078E824257819000AE0E8 /* GroupTableViewCell.swift */; };
 		047078EB242594E0000AE0E8 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047078EA242594E0000AE0E8 /* GroupTableViewController.swift */; };
+		04A6C543242A920800C5D821 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6C542242A920800C5D821 /* DetailViewController.swift */; };
 		04BD4D052429C7160034BC19 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD4D042429C7160034BC19 /* Utility.swift */; };
 		C6E77B8D8B416446E86A1AF2 /* Pods_group_message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC7F458F0C478024B6AEF76 /* Pods_group_message.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		040C40F624251CC9008209C6 /* group_message.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = group_message.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		040C40F624251CC9008209C6 /* Group Message.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Group Message.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		040C40F924251CC9008209C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		040C40FB24251CC9008209C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		040C410024251CC9008209C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -34,6 +35,7 @@
 		0424A82424255BA500250EF9 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageTableViewCell.swift; path = ../MessageTableViewCell.swift; sourceTree = "<group>"; };
 		047078E824257819000AE0E8 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroupTableViewCell.swift; path = ../GroupTableViewCell.swift; sourceTree = "<group>"; };
 		047078EA242594E0000AE0E8 /* GroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroupTableViewController.swift; path = ../GroupTableViewController.swift; sourceTree = "<group>"; };
+		04A6C542242A920800C5D821 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		04BD4D042429C7160034BC19 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		AE36FC447D8E74E6FF87D384 /* Pods-group_message.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group_message.release.xcconfig"; path = "Target Support Files/Pods-group_message/Pods-group_message.release.xcconfig"; sourceTree = "<group>"; };
 		BEC7F458F0C478024B6AEF76 /* Pods_group_message.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_message.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +67,7 @@
 		040C40F724251CC9008209C6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				040C40F624251CC9008209C6 /* group_message.app */,
+				040C40F624251CC9008209C6 /* Group Message.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +95,7 @@
 				0424A82424255BA500250EF9 /* MessageTableViewCell.swift */,
 				047078EA242594E0000AE0E8 /* GroupTableViewController.swift */,
 				047078E824257819000AE0E8 /* GroupTableViewCell.swift */,
+				04A6C542242A920800C5D821 /* DetailViewController.swift */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -133,7 +136,7 @@
 			);
 			name = group_message;
 			productName = group_message;
-			productReference = 040C40F624251CC9008209C6 /* group_message.app */;
+			productReference = 040C40F624251CC9008209C6 /* Group Message.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -237,6 +240,7 @@
 				047078E924257819000AE0E8 /* GroupTableViewCell.swift in Sources */,
 				040C40FC24251CC9008209C6 /* SceneDelegate.swift in Sources */,
 				047078EB242594E0000AE0E8 /* GroupTableViewController.swift in Sources */,
+				04A6C543242A920800C5D821 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,7 +393,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.moore.groupmessage;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Group Message";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -408,7 +412,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.moore.groupmessage;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Group Message";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

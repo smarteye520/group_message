@@ -9,8 +9,8 @@
 import UIKit
 
 class MessageTableViewCell: UITableViewCell {
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblContent: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!    
+    @IBOutlet weak var txtMessage: UITextView!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblSender: UILabel!
     

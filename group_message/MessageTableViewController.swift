@@ -12,57 +12,28 @@ import FirebaseDatabase
 
 class MessageTableViewController: UITableViewController {
     
-    var aryGroup : [String?]  = []
+    var aryMessage : [String?]  = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
         // add right navigation button
-        let button = UIBarButtonItem(title: "Set Groups", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onAddStudent(_:)))
+        let button = UIBarButtonItem(title: "Set Groups", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.goGroup(_:)))
         self.navigationItem.rightBarButtonItem = button
         
-        self.getGroupData()
-     
+        self.getMessageData()
     }
     
-    @IBAction func onAddStudent(_ sender: Any) {
+    @IBAction func goGroup(_ sender: Any) {
         let registerVC = storyboard?.instantiateViewController(withIdentifier:
             String(describing: GroupTableViewController.self)) as! GroupTableViewController
-//        registerVC.isEdit = false
         navigationController?.pushViewController(registerVC, animated: true)
     }
-    
-//    func getGroupData() {
-//        let refGroup = Database.database().reference().child("group")
-//        refGroup.queryOrdered(byChild: "name")
-//            .observe( .value, with: { (snapshot) in
-//            for group  in snapshot.children.allObjects as! [DataSnapshot] {
-//                let dicGroup = group.value as! [String: AnyObject]
-//                let groupName = dicGroup["name"] as? String
-//                self.aryGroup.append(groupName);
-//            }
-//            self.tableView.reloadData()
-//        })
-//    }
-    
-    func getGroupData() {
-        let refGroup = Database.database().reference().child("messages")
-        refGroup.queryOrdered(byChild: "created")
-            .observe( .value, with: { (snapshot) in
-            for group  in snapshot.children.allObjects as! [DataSnapshot] {
-                let dicGroup = group.value as! [String: AnyObject]
-                let content = dicGroup["content"] as? String
-                self.aryGroup.append(content);
-            }
-            self.tableView.reloadData()
-        })
+
+    func getMessageData() {
+
     }
     
 
@@ -71,28 +42,23 @@ class MessageTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return aryGroup.count
+        return aryMessage.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as? MessageTableViewCell {
-            cell.lblContent.text = aryGroup[indexPath.row]
-//            cell.lblSender.text = aryGroup[4 - indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageTableViewCell {
+            
+            
             return cell
         }
-        
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as? GroupTableViewCell {
-//            cell.lblGroupName.text = aryGroup[indexPath.row]
-//            return cell
-//        }
-//
+
         return UITableViewCell()
 
     }
