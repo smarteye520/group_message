@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.hexString
+        Utility.saveStringToUserDefaults(value: deviceTokenString, key: DEVICE_TOKEN)
     }
 }
 
