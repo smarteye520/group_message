@@ -101,6 +101,20 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let userInfo = notification.request.content.userInfo
+        print(userInfo)
+        
+        // Print message ID.
+//        if let messageID = userInfo[gcmMessageIDKey]
+//        {
+//          print("Message ID: \(messageID)")
+//        }
+//        let code = String.getString(message: userInfo["code"])
+//        guard let aps = userInfo["aps"] as? Dictionary<String, Any> else { return }
+//        guard let alert = aps["alert"] as? String else { return }
+//        guard let body = alert["body"] as? String else { return }
+
         completionHandler([.alert, .sound])
     }
     
@@ -108,10 +122,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         
         print(response)
 //        let identifier = response.notification.request.identifier
-//        let device = identifier.replacingOccurrences(of: "911Switch_Notification_", with: "")
-//        let userinfo = response.notification.request.content.userInfo
-//        let switch_no = userinfo["switch_id"] as? String
-        
+        let userinfo = response.notification.request.content.userInfo
+        print(userinfo)
         completionHandler()
     }
 }
