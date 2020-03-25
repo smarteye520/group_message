@@ -61,8 +61,7 @@ class GroupTableViewController: UITableViewController {
     }
     
     func saveGroup() {
-//        let deviceToken = Utility.getStringFromUserDefaults(key: DEVICE_TOKEN)
-        let deviceToken = "test_token"
+        let deviceToken = Utility.getStringFromUserDefaults(key: DEVICE_TOKEN)
         let userData = ["username": "", "usertoken": deviceToken]
         Utility.saveArrayToUserDefaults(value: aryTmpGroupId, key: USER_GROUP)
         
