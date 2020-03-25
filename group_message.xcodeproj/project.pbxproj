@@ -12,11 +12,11 @@
 		040C410124251CC9008209C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040C40FF24251CC9008209C6 /* Main.storyboard */; };
 		040C410324251CCA008209C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040C410224251CCA008209C6 /* Assets.xcassets */; };
 		040C410624251CCA008209C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040C410424251CCA008209C6 /* LaunchScreen.storyboard */; };
-		0424A82124252F9100250EF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0424A82024252F9100250EF9 /* GoogleService-Info.plist */; };
 		0424A8232425432000250EF9 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424A8222425432000250EF9 /* MessageTableViewController.swift */; };
 		0424A82524255BA500250EF9 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424A82424255BA500250EF9 /* MessageTableViewCell.swift */; };
 		047078E924257819000AE0E8 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047078E824257819000AE0E8 /* GroupTableViewCell.swift */; };
 		047078EB242594E0000AE0E8 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047078EA242594E0000AE0E8 /* GroupTableViewController.swift */; };
+		047C121A242AFF3C001EBB4B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 047C1219242AFF3C001EBB4B /* GoogleService-Info.plist */; };
 		04A6C543242A920800C5D821 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6C542242A920800C5D821 /* DetailViewController.swift */; };
 		04BD4D052429C7160034BC19 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD4D042429C7160034BC19 /* Utility.swift */; };
 		C6E77B8D8B416446E86A1AF2 /* Pods_group_message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC7F458F0C478024B6AEF76 /* Pods_group_message.framework */; };
@@ -30,11 +30,12 @@
 		040C410224251CCA008209C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		040C410524251CCA008209C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		040C410724251CCA008209C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0424A82024252F9100250EF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0424A8222425432000250EF9 /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageTableViewController.swift; path = ../MessageTableViewController.swift; sourceTree = "<group>"; };
 		0424A82424255BA500250EF9 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageTableViewCell.swift; path = ../MessageTableViewCell.swift; sourceTree = "<group>"; };
 		047078E824257819000AE0E8 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroupTableViewCell.swift; path = ../GroupTableViewCell.swift; sourceTree = "<group>"; };
 		047078EA242594E0000AE0E8 /* GroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroupTableViewController.swift; path = ../GroupTableViewController.swift; sourceTree = "<group>"; };
+		047C1219242AFF3C001EBB4B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		047C121B242AFF6F001EBB4B /* Group Message.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Group Message.entitlements"; sourceTree = "<group>"; };
 		04A6C542242A920800C5D821 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		04BD4D042429C7160034BC19 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		AE36FC447D8E74E6FF87D384 /* Pods-group_message.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group_message.release.xcconfig"; path = "Target Support Files/Pods-group_message/Pods-group_message.release.xcconfig"; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 		040C40F824251CC9008209C6 /* group_message */ = {
 			isa = PBXGroup;
 			children = (
+				047C121B242AFF6F001EBB4B /* Group Message.entitlements */,
 				04BD4D032429BEDD0034BC19 /* viewcontroller */,
 				040C40F924251CC9008209C6 /* AppDelegate.swift */,
 				040C40FB24251CC9008209C6 /* SceneDelegate.swift */,
@@ -82,7 +84,7 @@
 				040C410224251CCA008209C6 /* Assets.xcassets */,
 				040C410424251CCA008209C6 /* LaunchScreen.storyboard */,
 				040C410724251CCA008209C6 /* Info.plist */,
-				0424A82024252F9100250EF9 /* GoogleService-Info.plist */,
+				047C1219242AFF3C001EBB4B /* GoogleService-Info.plist */,
 				04BD4D042429C7160034BC19 /* Utility.swift */,
 			);
 			path = group_message;
@@ -178,7 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				040C410624251CCA008209C6 /* LaunchScreen.storyboard in Resources */,
-				0424A82124252F9100250EF9 /* GoogleService-Info.plist in Resources */,
+				047C121A242AFF3C001EBB4B /* GoogleService-Info.plist in Resources */,
 				040C410324251CCA008209C6 /* Assets.xcassets in Resources */,
 				040C410124251CC9008209C6 /* Main.storyboard in Resources */,
 			);
@@ -385,6 +387,8 @@
 			baseConfigurationReference = DA2E4D3770616D2FCF5CA621 /* Pods-group_message.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "group_message/Group Message.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9D2SLFLY8F;
 				INFOPLIST_FILE = group_message/Info.plist;
@@ -392,8 +396,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moore.groupmessage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acceleratingyoungminds.promo;
 				PRODUCT_NAME = "Group Message";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -404,15 +409,17 @@
 			baseConfigurationReference = AE36FC447D8E74E6FF87D384 /* Pods-group_message.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9D2SLFLY8F;
+				CODE_SIGN_ENTITLEMENTS = "group_message/Group Message.entitlements";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = group_message/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moore.groupmessage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acceleratingyoungminds.promo;
 				PRODUCT_NAME = "Group Message";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
