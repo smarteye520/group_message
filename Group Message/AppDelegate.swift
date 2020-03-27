@@ -80,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-
       if let messageID = userInfo["gcm.message_id"] {
         print("Message ID: \(messageID)")
       }
@@ -91,7 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
         print(userInfo)
-
         completionHandler(UIBackgroundFetchResult.newData)
     }
 }
@@ -136,6 +134,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let dicMessage = ["title": title, "body": body,"created": myString, "group": groupName]
         aryMessage.append(dicMessage)
         Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Add Message"), object: nil)
         
         completionHandler()
     }

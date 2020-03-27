@@ -22,12 +22,19 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
         
         // Add right navigation button
         let button = UIBarButtonItem(title: "Set Groups", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.goGroup(_:)))
-        self.navigationItem.rightBarButtonItem = button        
+        self.navigationItem.rightBarButtonItem = button
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMoveToForeGround), name: NSNotification.Name(rawValue: "Add Message"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.getMessageData()
+    }
+    
+    @objc func appMoveToForeGround() {
+        self.viewWillAppear(true)
     }
     
     @IBAction func goGroup(_ sender: Any) {
