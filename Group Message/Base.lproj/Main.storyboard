@@ -58,6 +58,12 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="puK-XG-Exj">
+                                            <rect key="frame" x="10" y="10" width="394" height="139"/>
+                                            <connections>
+                                                <action selector="onClick:" destination="Ouf-dd-T6o" eventType="touchUpInside" id="1go-fN-GLi"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="rTj-9H-Yks" secondAttribute="trailing" constant="20" id="1Tq-2m-lyx"/>
@@ -66,11 +72,15 @@
                                         <constraint firstItem="1Pi-EV-GHn" firstAttribute="top" secondItem="JfE-YN-rrQ" secondAttribute="bottom" constant="3" id="DHJ-Uc-sTT"/>
                                         <constraint firstItem="jtI-qc-lUo" firstAttribute="top" secondItem="SWs-wZ-fWp" secondAttribute="top" constant="10" id="G5L-CP-FQ1"/>
                                         <constraint firstItem="1Pi-EV-GHn" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="20" id="GQ6-vk-iYj"/>
+                                        <constraint firstAttribute="trailing" secondItem="puK-XG-Exj" secondAttribute="trailing" constant="10" id="H9t-ME-H1C"/>
                                         <constraint firstAttribute="trailing" secondItem="1Pi-EV-GHn" secondAttribute="trailing" constant="20" id="d6V-Y5-Ynb"/>
                                         <constraint firstAttribute="trailing" secondItem="JfE-YN-rrQ" secondAttribute="trailing" constant="17" id="dz0-vn-POS"/>
                                         <constraint firstItem="rTj-9H-Yks" firstAttribute="top" secondItem="1Pi-EV-GHn" secondAttribute="bottom" constant="8" id="eGG-ii-atB"/>
                                         <constraint firstItem="jtI-qc-lUo" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="20" id="eOL-3g-l5f"/>
+                                        <constraint firstAttribute="bottom" secondItem="puK-XG-Exj" secondAttribute="bottom" constant="10" id="evy-fd-p0Y"/>
+                                        <constraint firstItem="puK-XG-Exj" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="10" id="gNa-tu-C3x"/>
                                         <constraint firstItem="JfE-YN-rrQ" firstAttribute="top" secondItem="jtI-qc-lUo" secondAttribute="bottom" constant="6" id="hOl-ac-k06"/>
+                                        <constraint firstItem="puK-XG-Exj" firstAttribute="top" secondItem="SWs-wZ-fWp" secondAttribute="top" constant="10" id="oqH-rz-mZU"/>
                                         <constraint firstAttribute="bottom" secondItem="rTj-9H-Yks" secondAttribute="bottom" constant="8" id="q0f-fd-TXp"/>
                                         <constraint firstItem="JfE-YN-rrQ" firstAttribute="leading" secondItem="SWs-wZ-fWp" secondAttribute="leading" constant="17" id="xgb-V7-skT"/>
                                     </constraints>

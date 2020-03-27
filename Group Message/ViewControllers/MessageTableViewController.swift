@@ -10,30 +10,23 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class MessageTableViewController: UITableViewController {
+class MessageTableViewController: UITableViewController, MessageTableViewCellDelegate {
     
     var aryMessage : [[String: Any?]]  = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let tmpMessage = [["title": "title1", "body": "message1", "created":"2020-03-20, 16:48:37", "group" : "Adult"],
-//                          ["title": "title2", "body": "message2", "created":"2020-03-20, 18:48:37", "group" : "Middle School"],
-//                          ["title": "title3", "body": "message3", "created":"2020-03-20, 16:48:37", "group" : "Adult"],
-//                          ["title": "title4", "body": "message4", "created":"2020-03-20, 18:48:37", "group" : "Middle School"],
-//                          ["title": "title5", "body": "message5", "created":"2020-03-20, 16:48:37", "group" : "Adult"],
-//                          ["title": "title6", "body": "message6", "created":"2020-03-20, 18:48:37", "group" : "Middle School"],
-//                          ["title": "title7", "body": "message7", "created":"2020-03-20, 16:48:37", "group" : "Adult"],
-//                          ["title": "title8", "body": "message8", "created":"2020-03-20, 18:48:37", "group" : "Middle School"]]
-//        Utility.saveDictionaryToUserDefaults(value: tmpMessage, key: USER_MESSAGE)
 
         // Add left navigation button
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
         // Add right navigation button
         let button = UIBarButtonItem(title: "Set Groups", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.goGroup(_:)))
-        self.navigationItem.rightBarButtonItem = button
-        
+        self.navigationItem.rightBarButtonItem = button        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.getMessageData()
     }
     
@@ -46,6 +39,14 @@ class MessageTableViewController: UITableViewController {
     func getMessageData() {
         aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
         self.tableView.reloadData()
+    }
+    
+    func goAddOnStudent(index: Int?) {
+        let dicMessage = aryMessage[index!]
+        let detailVC = storyboard?.instantiateViewController(withIdentifier:
+            String(describing: DetailViewController.self)) as! DetailViewController
+        detailVC.dicMessage = dicMessage
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 
     // MARK: - Table view data source
@@ -69,7 +70,8 @@ class MessageTableViewController: UITableViewController {
             cell.txtMessage.text = (dicMessage["body"] as? String ?? "")
             cell.lblTime.text = (dicMessage["created"] as? String ?? "")
             cell.lblSender.text = (dicMessage["group"] as? String ?? "")
-            
+            cell.cellIndex = indexPath.row
+            cell.delegate = self
             return cell
         }
 

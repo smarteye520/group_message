@@ -12,6 +12,7 @@ import UIKit
 let DEVICE_TOKEN = "device-token"
 let USER_GROUP = "user-groups"
 let USER_MESSAGE = "user-messages"
+let GROUP_DATA = "group-data"
 
 class Utility: NSObject {
     

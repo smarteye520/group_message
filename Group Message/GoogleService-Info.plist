@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>853064361884-8lgbb74dnlrejolg92j331a3s7t0519f.apps.googleusercontent.com</string>
+	<string>853064361884-or984rdphovlqneurif7khivlnr4h96q.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.853064361884-8lgbb74dnlrejolg92j331a3s7t0519f</string>
+	<string>com.googleusercontent.apps.853064361884-or984rdphovlqneurif7khivlnr4h96q</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>853064361884-njm29kenc0ne96ub9cdjqifvoo95hfs0.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.acceleratingyoungminds.promo</string>
+	<string>com.alex.groupmessage</string>
 	<key>PROJECT_ID</key>
 	<string>groupmsgapp-4507d</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:853064361884:ios:b40398b649180ea0314a59</string>
+	<string>1:853064361884:ios:444165d167b551f5314a59</string>
 	<key>DATABASE_URL</key>
 	<string>https://groupmsgapp-4507d.firebaseio.com</string>
 </dict>

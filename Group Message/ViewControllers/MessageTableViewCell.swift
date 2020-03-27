@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol MessageTableViewCellDelegate {
+    func goAddOnStudent(index : Int?) -> Void
+}
+
 class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!    
     @IBOutlet weak var txtMessage: UITextView!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblSender: UILabel!
+    
+    var delegate: MessageTableViewCellDelegate?
+    var cellIndex: Int!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,5 +31,9 @@ class MessageTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func onClick(_ sender: Any) {
+        self.delegate?.goAddOnStudent(index: self.cellIndex)
+    }
+    
 }

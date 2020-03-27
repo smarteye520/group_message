@@ -28,9 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UNUserNotificationCenter.current().requestAuthorization(
               options: authOptions,
               completionHandler: {_, _ in })
-            
-            Messaging.messaging().delegate = self
-            Messaging.messaging().isAutoInitEnabled = true
         } else {
           let settings: UIUserNotificationSettings =
           UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -38,8 +35,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         application.registerForRemoteNotifications()
-
-        updateFirestorePushTokenIfNeeded()
+        
+        Messaging.messaging().delegate = self
+//        Messaging.messaging().isAutoInitEnabled = true
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+          if let error = error {
+            print("Error fetching remote instance ID: \(error)")
+          } else if let result = result {
+            print("Remote instance ID token: \(result.token)")
+          }
+        }
         
         return true
     }
@@ -66,32 +72,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken
-        let deviceTokenString = deviceToken.hexString
-        Utility.saveStringToUserDefaults(value: deviceTokenString, key: DEVICE_TOKEN)
+//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//        print(deviceToken)
+//        Messaging.messaging().apnsToken = deviceToken
+//        let deviceTokenString = deviceToken.hexString
+//        Utility.saveStringToUserDefaults(value: deviceTokenString, key: DEVICE_TOKEN)
+//    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+
+      if let messageID = userInfo["gcm.message_id"] {
+        print("Message ID: \(messageID)")
+      }
+
+      print(userInfo)
     }
     
-    func getNotificationSettings() {
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-                guard settings.authorizationStatus == .authorized else { return }
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
-                })
-            }
-        } else {
-            let settings: UIUserNotificationSettings =
-            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(settings)
-            UIApplication.shared.registerForRemoteNotifications()
-        }
-    }
-    
-    func updateFirestorePushTokenIfNeeded() {
-        if let token = Messaging.messaging().fcmToken {
-            Utility.saveStringToUserDefaults(value: token, key: DEVICE_TOKEN)
-        }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+        print(userInfo)
+
+        completionHandler(UIBackgroundFetchResult.newData)
     }
 }
 
@@ -105,37 +106,59 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let userInfo = notification.request.content.userInfo
         print(userInfo)
         
-        // Print message ID.
-//        if let messageID = userInfo[gcmMessageIDKey]
-//        {
-//          print("Message ID: \(messageID)")
-//        }
-//        let code = String.getString(message: userInfo["code"])
-//        guard let aps = userInfo["aps"] as? Dictionary<String, Any> else { return }
-//        guard let alert = aps["alert"] as? String else { return }
-//        guard let body = alert["body"] as? String else { return }
-
         completionHandler([.alert, .sound])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         print(response)
-//        let identifier = response.notification.request.identifier
-        let userinfo = response.notification.request.content.userInfo
-        print(userinfo)
+        let userInfo = response.notification.request.content.userInfo
+        print(userInfo)
+        
+        if let messageID = userInfo["gcm.message_id"]{
+          print("Message ID: \(messageID)")
+        }
+
+        guard let aps = userInfo["aps"] as? Dictionary<String, Any> else { return }
+        guard let alert = aps["alert"] as? Dictionary<String, Any> else { return }
+        guard let body = alert["body"] as? String else { return }
+        guard let title = alert["title"] as? String else { return }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let myString = formatter.string(from: Date())
+        print(myString)
+        
+        let groupId = "-M2Sk65bv7PFzlr-YZRK"
+        let groupName = getGroupName(groupId: groupId)
+        
+        var aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
+        let dicMessage = ["title": title, "body": body,"created": myString, "group": groupName]
+        aryMessage.append(dicMessage)
+        Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
+        
         completionHandler()
+    }
+    
+    func getGroupName(groupId: String) -> String {
+        let groupData = Utility.getDictionaryFromUserDefaults(key: GROUP_DATA)
+        for group in groupData {
+            let groupid = group["id"] as! String
+            let groupname = group["name"] as! String
+            if groupId == groupid {
+                return groupname
+            }
+        }
+        return ""
     }
 }
 
 extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print(fcmToken)
-        self.updateFirestorePushTokenIfNeeded()
+        print("fcmToken=" + fcmToken)
+        Utility.saveStringToUserDefaults(value: fcmToken, key: DEVICE_TOKEN)
     }
-    
-//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-//        print(remoteMessage.appData)
-//    }
 }
+
+
 

@@ -12,11 +12,15 @@ import FirebaseDatabase
 
 class GroupTableViewController: UITableViewController {
     
+    var aryGroup: [[String: String?]] = []
     var aryGroupName : [String?] = []
     var aryGroupId: [String?] = []
     var aryTmpGroupId : [String?] = []
     var aryLocalGroup : [String?] = []
     var bDone : Bool = false
+    
+    var iRequestAdd : Int = 0
+    var iRequestRemove : Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +34,17 @@ class GroupTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         bDone = false
+        iRequestAdd = 0
+        iRequestRemove = 0
     }
     
     func getGroupData() {
         aryLocalGroup.removeAll()
         aryLocalGroup = Utility.getArrayFromUserDefaults(key: USER_GROUP)
+        aryTmpGroupId.removeAll()
         aryTmpGroupId = aryLocalGroup
+        
+        aryGroup.removeAll()
         
         let refGroup = Database.database().reference().child("group")
         refGroup.queryOrdered(byChild: "name")
@@ -46,7 +55,10 @@ class GroupTableViewController: UITableViewController {
                 let id = group.key
                 self.aryGroupName.append(content)
                 self.aryGroupId.append(id)
+                self.aryGroup.append(["id": id, "name": content])
             }
+                
+            Utility.saveDictionaryToUserDefaults(value: self.aryGroup, key: GROUP_DATA)
             self.tableView.reloadData()
         })
     }
@@ -62,7 +74,7 @@ class GroupTableViewController: UITableViewController {
     
     func saveGroup() {
         let deviceToken = Utility.getStringFromUserDefaults(key: DEVICE_TOKEN)
-        let userData = ["username": "", "usertoken": deviceToken]
+        let userData = ["username": "iPhone User", "usertoken": deviceToken]
         Utility.saveArrayToUserDefaults(value: aryTmpGroupId, key: USER_GROUP)
         
         if aryTmpGroupId.count > 0 {
@@ -71,7 +83,18 @@ class GroupTableViewController: UITableViewController {
                 if !aryLocalGroup.contains(groupid) {
                     let refGroup = Database.database().reference().child("users")
                     guard let key = refGroup.child(groupid!).childByAutoId().key else {return}
-                    refGroup.child(groupid!).child(key).setValue(userData)
+                    self.iRequestAdd -= 1
+                    refGroup.child(groupid!).child(key).setValue(userData){(error, ref) in
+                        if let error = error {
+                          print("Data could not be saved: \(error).")
+                        } else {
+                            self.iRequestAdd += 1
+                            if (self.iRequestAdd == 0) && (self.iRequestRemove == 0){
+                                let _ = self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
@@ -82,19 +105,30 @@ class GroupTableViewController: UITableViewController {
                 if !aryTmpGroupId.contains(groupid) {
                     let refGroup = Database.database().reference().child("users").child(groupid!)
                     let query = refGroup.queryOrdered(byChild: "usertoken").queryEqual(toValue: deviceToken)
+                    self.iRequestRemove -= 1
                     query.observe( .value, with: { (snapshot) in
                         for child  in snapshot.children.allObjects as! [DataSnapshot] {
                             let childkey = child.key
-                            refGroup.child(childkey).removeValue()
+                            refGroup.child(childkey).removeValue() {(error, ref) in
+                                refGroup.removeAllObservers()
+                                if let error = error {
+                                  print("Data could not be saved: \(error).")
+                                } else {
+                                    self.iRequestRemove += 1
+                                    if (self.iRequestAdd == 0) && (self.iRequestRemove == 0){
+                                        let _ = self.navigationController?.popViewController(animated: true)
+                                    }
+                                }
+                            }
                         }
                     })
                 }
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        if (self.iRequestAdd == 0) && (self.iRequestRemove == 0){
             let _ = self.navigationController?.popViewController(animated: true)
-        }        
+        }
     }
 
     // MARK: - Table view data source
