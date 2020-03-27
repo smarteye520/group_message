@@ -21,7 +21,7 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         lblTitle.text = (dicMessage["title"] as? String ?? "")
-        txtMessage.text = (dicMessage["content"] as? String ?? "")
+        txtMessage.text = (dicMessage["body"] as? String ?? "")
         lblTime.text = (dicMessage["created"] as? String ?? "")
         lblGroup.text = (dicMessage["group"] as? String ?? "")
     }

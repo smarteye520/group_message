@@ -388,6 +388,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Group Message/Group Message.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = QDK2C82QSW;
 				INFOPLIST_FILE = "Group Message/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -410,6 +411,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Group Message/Group Message.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = QDK2C82QSW;
 				INFOPLIST_FILE = "Group Message/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
