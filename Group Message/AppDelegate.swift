@@ -80,16 +80,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-      if let messageID = userInfo["gcm.message_id"] {
-        print("Message ID: \(messageID)")
-      }
-
-      print(userInfo)
+        print(userInfo)
+        saveMessage(userInfo: userInfo)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
         print(userInfo)
+        saveMessage(userInfo: userInfo)
         completionHandler(UIBackgroundFetchResult.newData)
     }
 }
@@ -103,7 +101,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         
         let userInfo = notification.request.content.userInfo
         print(userInfo)
-        
+        saveMessage(userInfo: userInfo)
         completionHandler([.alert, .sound])
     }
     
@@ -112,7 +110,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         print(response)
         let userInfo = response.notification.request.content.userInfo
         print(userInfo)
-        
+        saveMessage(userInfo: userInfo)
+        completionHandler()
+    }
+    
+    func saveMessage(userInfo: [AnyHashable : Any]) {
         if let messageID = userInfo["gcm.message_id"]{
           print("Message ID: \(messageID)")
         }
@@ -127,18 +129,17 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let myString = formatter.string(from: Date())
         print(myString)
         
-        let groupId = "-M2Sk65bv7PFzlr-YZRK"
+        guard let groupId = userInfo["gcm.notification.group"] as? String else { return }
         let groupName = getGroupName(groupId: groupId)
         
         var aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
         let dicMessage = ["title": title, "body": body,"created": myString, "group": groupName]
-        aryMessage.append(dicMessage)
+        aryMessage.insert(dicMessage, at: 0)
         Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Add Message"), object: nil)
-        
-        completionHandler()
     }
+    
     
     func getGroupName(groupId: String) -> String {
         let groupData = Utility.getDictionaryFromUserDefaults(key: GROUP_DATA)
@@ -157,6 +158,10 @@ extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("fcmToken=" + fcmToken)
         Utility.saveStringToUserDefaults(value: fcmToken, key: DEVICE_TOKEN)
+    }
+    
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received data message")
     }
 }
 
