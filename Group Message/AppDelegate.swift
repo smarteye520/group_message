@@ -80,14 +80,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        
         print(userInfo)
-        saveMessage(userInfo: userInfo)
+        guard let groupId = userInfo["group"] as? String else {return}
+        saveMessage(userInfo: userInfo, groupid: groupId)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
         print(userInfo)
-        saveMessage(userInfo: userInfo)
+        guard let groupId = userInfo["group"] as? String else {return}
+        saveMessage(userInfo: userInfo, groupid: groupId)
+        
         completionHandler(UIBackgroundFetchResult.newData)
     }
 }
@@ -101,8 +105,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         
         let userInfo = notification.request.content.userInfo
         print(userInfo)
-        saveMessage(userInfo: userInfo)
+        guard let groupId = userInfo["group"] as? String else {return}
+        saveMessage(userInfo: userInfo, groupid: groupId)
+        
         completionHandler([.alert, .sound])
+
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -110,11 +117,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         print(response)
         let userInfo = response.notification.request.content.userInfo
         print(userInfo)
-        saveMessage(userInfo: userInfo)
+        guard let groupId = userInfo["group"] as? String else { return }
+        
+        saveMessage(userInfo: userInfo, groupid: groupId)
         completionHandler()
     }
     
-    func saveMessage(userInfo: [AnyHashable : Any]) {
+    func saveMessage(userInfo: [AnyHashable : Any], groupid: String) {
         if let messageID = userInfo["gcm.message_id"]{
           print("Message ID: \(messageID)")
         }
@@ -129,8 +138,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let myString = formatter.string(from: Date())
         print(myString)
         
-        guard let groupId = userInfo["gcm.notification.group"] as? String else { return }
-        let groupName = getGroupName(groupId: groupId)
+        
+        let groupName = getGroupName(groupId: groupid)
         
         var aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
         let dicMessage = ["title": title, "body": body,"created": myString, "group": groupName]
