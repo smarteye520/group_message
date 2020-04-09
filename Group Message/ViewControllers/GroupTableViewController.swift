@@ -13,128 +13,108 @@ import FirebaseDatabase
 class GroupTableViewController: UITableViewController {
     
     var aryGroup: [[String: String?]] = []
-    var aryGroupName : [String?] = []
-    var aryGroupId: [String?] = []
+    var aryLocalGroup : [[String: String?]] = []
     var aryTmpGroupId : [String?] = []
-    var aryLocalGroup : [String?] = []
-    var bDone : Bool = false
     
-    var iRequestAdd : Int = 0
-    var iRequestRemove : Int = 0
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "Select Groups"
         let button = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onDone(_:)))
         self.navigationItem.rightBarButtonItem = button
-
-        self.getGroupData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bDone = false
-        iRequestAdd = 0
-        iRequestRemove = 0
+        
+        self.getGroupData()
     }
     
     func getGroupData() {
-        aryLocalGroup.removeAll()
-        aryLocalGroup = Utility.getArrayFromUserDefaults(key: USER_GROUP)
-        aryTmpGroupId.removeAll()
-        aryTmpGroupId = aryLocalGroup
-        
+        let deviceToken = Utility.getStringFromUserDefaults(key: DEVICE_TOKEN)
+        var iRequest = 0
+                
         aryGroup.removeAll()
+        aryLocalGroup.removeAll()
+        aryTmpGroupId.removeAll()
         
-        let refGroup = Database.database().reference().child("group")
-        refGroup.queryOrdered(byChild: "name")
+        let refGROUP = Database.database().reference().child("group")
+        refGROUP.queryOrdered(byChild: "name")
             .observe( .value, with: { (snapshot) in
             for group  in snapshot.children.allObjects as! [DataSnapshot] {
                 let dicGroup = group.value as! [String: AnyObject]
-                let content = dicGroup["name"] as? String
                 let id = group.key
-                self.aryGroupName.append(content)
-                self.aryGroupId.append(id)
+                let content = dicGroup["name"] as? String
                 self.aryGroup.append(["id": id, "name": content])
+                                
+                iRequest += 1
+                let refUSER = Database.database().reference().child("users").child(id)
+                let query = refUSER.queryOrdered(byChild: "usertoken").queryEqual(toValue: deviceToken)
+                query.observe( .value, with: { (snapshot) in
+                    iRequest -= 1
+                    for child  in snapshot.children.allObjects as! [DataSnapshot] {
+                        let childkey = child.key
+                        self.aryLocalGroup.append(["groupId": id, "childId": childkey])
+                        self.aryTmpGroupId.append(id)
+                    }
+                    
+                    if iRequest == 0 {
+                        self.tableView.reloadData()
+                    }
+                })
             }
                 
             Utility.saveDictionaryToUserDefaults(value: self.aryGroup, key: GROUP_DATA)
-            self.tableView.reloadData()
         })
     }
     
-    
-    
     @IBAction func onDone(_ sender: Any) {
-        bDone = !bDone
-        if bDone {
-            self.saveGroup()
-        }
+        self.saveGroup()
     }
     
     func saveGroup() {
         let deviceToken = Utility.getStringFromUserDefaults(key: DEVICE_TOKEN)
         let userData = ["username": "iPhone User", "usertoken": deviceToken]
-        Utility.saveArrayToUserDefaults(value: aryTmpGroupId, key: USER_GROUP)
-        
+
         if aryTmpGroupId.count > 0 {
             for i in 0 ... aryTmpGroupId.count - 1{
                 let groupid = aryTmpGroupId[i]
-                if !aryLocalGroup.contains(groupid) {
+                if !aryLocalGroup.contains(where: {$0["groupId"] == groupid}) {
                     let refGroup = Database.database().reference().child("users")
                     guard let key = refGroup.child(groupid!).childByAutoId().key else {return}
-                    self.iRequestAdd -= 1
-                    refGroup.child(groupid!).child(key).setValue(userData){(error, ref) in
+                    refGroup.child(groupid!).child(key).setValue(userData) { (error, ref) in
+                        if let error = error {
+                          print("Data could not be saved: \(error).")
+                        }
+                    }
+                }
+            }
+        }
+
+        if aryLocalGroup.count > 0 {
+            for i in 0 ... aryLocalGroup.count - 1 {
+                let group = aryLocalGroup[i]
+                let groupid = group["groupId"]
+                let childid = group["childId"]
+                if !aryTmpGroupId.contains(groupid!) {
+                    Database.database().reference().child("users").child(groupid!!).child(childid!!).removeValue() { (error, ref) in
+                        
                         if let error = error {
                           print("Data could not be saved: \(error).")
                         } else {
-                            self.iRequestAdd += 1
-                            if (self.iRequestAdd == 0) && (self.iRequestRemove == 0){
-                                let _ = self.navigationController?.popViewController(animated: true)
-                            }
+                            let _ = self.navigationController?.popViewController(animated: true)
                         }
                     }
-                    
                 }
             }
-        }
+        }         
         
-        if aryLocalGroup.count > 0 {
-            for i in 0 ... aryLocalGroup.count - 1 {
-                let groupid = aryLocalGroup[i]
-                if !aryTmpGroupId.contains(groupid) {
-                    let refGroup = Database.database().reference().child("users").child(groupid!)
-                    let query = refGroup.queryOrdered(byChild: "usertoken").queryEqual(toValue: deviceToken)
-                    self.iRequestRemove -= 1
-                    query.observe( .value, with: { (snapshot) in
-                        for child  in snapshot.children.allObjects as! [DataSnapshot] {
-                            let childkey = child.key
-                            refGroup.child(childkey).removeValue() {(error, ref) in
-                                refGroup.removeAllObservers()
-                                if let error = error {
-                                  print("Data could not be saved: \(error).")
-                                } else {
-                                    self.iRequestRemove += 1
-                                    if (self.iRequestAdd == 0) && (self.iRequestRemove == 0){
-                                        let _ = self.navigationController?.popViewController(animated: true)
-                                    }
-                                }
-                            }
-                        }
-                    })
-                }
-            }
-        }
-        
-        if (self.iRequestAdd == 0) && (self.iRequestRemove == 0){
-            let _ = self.navigationController?.popViewController(animated: true)
-        }
+       let _ = self.navigationController?.popViewController(animated: true)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -143,17 +123,19 @@ class GroupTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return aryGroupName.count
+        return aryGroup.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as? GroupTableViewCell {
             
-            cell.lblGroupName.text = aryGroupName[indexPath.row]
-            let groupid = aryGroupId[indexPath.row]
+            let group = aryGroup[indexPath.row]
+            let groupName = group["name"]
+            let groupid = group["id"]
             
-            if aryTmpGroupId.contains(groupid) {
+            cell.lblGroupName.text = groupName!
+            
+            if aryTmpGroupId.contains(groupid!) {
                 cell.imgCheck.image = UIImage(named: "Checkmark")
             } else {
                 cell.imgCheck.image = UIImage(named: "Checkmarkempty")
@@ -167,14 +149,16 @@ class GroupTableViewController: UITableViewController {
         
         let currentCell = tableView.cellForRow(at: indexPath) as! GroupTableViewCell
         
-        let groupid = aryGroupId[indexPath.row]
-        if aryTmpGroupId.contains(groupid) {
+        let group = aryGroup[indexPath.row]
+        let groupid = group["id"]
+
+        if aryTmpGroupId.contains(groupid!) {
             currentCell.imgCheck.image = UIImage(named: "Checkmarkempty")
-            let indexofCell = aryTmpGroupId.firstIndex(of: groupid)
+            let indexofCell = aryTmpGroupId.firstIndex(of: groupid!)
             aryTmpGroupId.remove(at: indexofCell!)
         } else {
             currentCell.imgCheck.image = UIImage(named: "Checkmark")
-            aryTmpGroupId.append(groupid)
+            aryTmpGroupId.append(groupid!)
         }
     }
     

@@ -16,6 +16,9 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let arymessage = [["title": "Welcome", "body": "Welcome joined to this group.", "created":"2020-03-27 16:20", "group": "Adult"], ["title": "Scott", "body": "Scott.\n \n \nBadger Creek closed today due to", "created":"2020-03-26 16:24", "group": "Academy/Select"]]
+//        Utility.saveDictionaryToUserDefaults(value: arymessage, key: USER_MESSAGE)
 
         // Add left navigation button
         self.navigationItem.leftBarButtonItem = self.editButtonItem
