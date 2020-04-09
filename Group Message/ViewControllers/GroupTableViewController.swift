@@ -107,9 +107,9 @@ class GroupTableViewController: UITableViewController {
                     }
                 }
             }
-        }         
+        }
         
-       let _ = self.navigationController?.popViewController(animated: true)
+        let _ = self.navigationController?.popViewController(animated: true)
     }
 
     // MARK: - Table view data source
