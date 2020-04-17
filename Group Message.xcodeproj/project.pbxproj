@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0456E211242BF605004E1951 /* Group Message.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Group Message.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0456E211242BF605004E1951 /* CSA_MSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSA_MSG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456E214242BF606004E1951 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0456E219242BF606004E1951 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0456E21B242BF608004E1951 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		0456E212242BF605004E1951 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0456E211242BF605004E1951 /* Group Message.app */,
+				0456E211242BF605004E1951 /* CSA_MSG.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 			);
 			name = "Group Message";
 			productName = "Group Message";
-			productReference = 0456E211242BF605004E1951 /* Group Message.app */;
+			productReference = 0456E211242BF605004E1951 /* CSA_MSG.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -388,7 +388,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Group Message/Group Message.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = QDK2C82QSW;
 				INFOPLIST_FILE = "Group Message/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -396,7 +396,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.groupmessage;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CSA_MSG;
 				PROVISIONING_PROFILE_SPECIFIER = Group_Dev_May26;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -411,7 +411,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Group Message/Group Message.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = QDK2C82QSW;
 				INFOPLIST_FILE = "Group Message/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -419,7 +419,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.groupmessage;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CSA_MSG;
 				PROVISIONING_PROFILE_SPECIFIER = Group_Adhoc_May27;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
