@@ -16,37 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
-        
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().delegate = self
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-              options: authOptions,
-              completionHandler: {_, _ in })
-        } else {
-          let settings: UIUserNotificationSettings =
-          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-          application.registerUserNotificationSettings(settings)
-        }
-        
-        application.registerForRemoteNotifications()
-        
         Messaging.messaging().delegate = self
-//        Messaging.messaging().isAutoInitEnabled = true
         
-        InstanceID.instanceID().instanceID { (result, error) in
-          if let error = error {
-            print("Error fetching remote instance ID: \(error)")
-          } else if let result = result {
-            print("Remote instance ID token: \(result.token)")
-          }
-        }
-        
+        // Remote notifications
+        registerForRemoteNotifications(application)
+        handleRemoteNotificationAppLaunch(launchOptions)
+                
         return true
     }
 
@@ -72,13 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//        print(deviceToken)
-//        Messaging.messaging().apnsToken = deviceToken
-//        let deviceTokenString = deviceToken.hexString
-//        Utility.saveStringToUserDefaults(value: deviceTokenString, key: DEVICE_TOKEN)
-//    }
-    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         
         print(userInfo)
@@ -96,32 +68,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate : UNUserNotificationCenterDelegate{
-    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        let userInfo = notification.request.content.userInfo
-        print(userInfo)
-        guard let groupId = userInfo["group"] as? String else {return}
-        saveMessage(userInfo: userInfo, groupid: groupId)
-        
-        completionHandler([.alert, .sound])
 
+// MARK: - AppDelegate helper methods
+extension AppDelegate {
+    func registerForRemoteNotifications(_ application: UIApplication) {
+        if #available(iOS 10.0, *) {
+//            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (granted, error) in
+                if granted {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
+            }
+        } else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        print(response)
-        let userInfo = response.notification.request.content.userInfo
-        print(userInfo)
-        guard let groupId = userInfo["group"] as? String else { return }
-        
-        saveMessage(userInfo: userInfo, groupid: groupId)
-        completionHandler()
+    // [START handle_remote_notification_app_launch]
+    func handleRemoteNotificationAppLaunch(_ launchOptions: [AnyHashable: Any]?) {
+        guard let launchOptions = launchOptions else { return }
+        guard let notificationInfo = launchOptions[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] else { return }
+
+        print(notificationInfo)
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2.0) {
+            DispatchQueue.main.async {
+                guard let groupId = notificationInfo["group"] as? String else {return}
+                self.saveMessage(userInfo: notificationInfo, groupid: groupId)
+            }
+        }
     }
+    // [END handle_remote_notification_app_launch]
+    
     
     func saveMessage(userInfo: [AnyHashable : Any], groupid: String) {
         if let messageID = userInfo["gcm.message_id"]{
@@ -138,7 +120,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let myString = formatter.string(from: Date())
         print(myString)
         
-        
         let groupName = getGroupName(groupId: groupid)
         
         var aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
@@ -148,7 +129,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Add Message"), object: nil)
     }
-    
     
     func getGroupName(groupId: String) -> String {
         let groupData = Utility.getDictionaryFromUserDefaults(key: GROUP_DATA)
@@ -160,6 +140,32 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
             }
         }
         return ""
+    }
+    
+}
+
+// MARK: - UNUserNotificationDelegate
+
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate{
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let userInfo = notification.request.content.userInfo
+        print(userInfo)
+        guard let groupId = userInfo["group"] as? String else {return}
+        saveMessage(userInfo: userInfo, groupid: groupId)
+//        NotificationManager.shared.handleRemoteNotification(userInfo)
+        completionHandler([.alert])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+
+        let userInfo = response.notification.request.content.userInfo
+        print(userInfo)
+        guard let groupId = userInfo["group"] as? String else { return }
+        saveMessage(userInfo: userInfo, groupid: groupId)
+//        NotificationManager.shared.handleRemoteNotification(userInfo)
+        completionHandler()
     }
 }
 
