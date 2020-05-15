@@ -106,28 +106,38 @@ extension AppDelegate {
     
     
     func saveMessage(userInfo: [AnyHashable : Any], groupid: String) {
-        if let messageID = userInfo["gcm.message_id"]{
-          print("Message ID: \(messageID)")
+        
+        if let messageID = userInfo["gcm.message_id"] as? String {
+            print("Message ID: \(messageID)")
+            
+            var aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
+            var bFalg : Bool = false
+            for message  in aryMessage {
+                let messageid = message["id"] as? String
+                if messageID == messageid! {
+                    bFalg = true
+                }
+            }
+            
+            if !bFalg {
+                guard let aps = userInfo["aps"] as? Dictionary<String, Any> else { return }
+                guard let alert = aps["alert"] as? Dictionary<String, Any> else { return }
+                guard let body = alert["body"] as? String else { return }
+                guard let title = alert["title"] as? String else { return }
+                
+                let groupName = getGroupName(groupId: groupid)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let myString = formatter.string(from: Date())
+                print(myString)
+                
+                let dicMessage = ["id":  messageID, "title": title, "body": body,"created": myString, "group": groupName] as [String : Any]
+                aryMessage.insert(dicMessage, at: 0)
+                Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Add Message"), object: nil)
+            }
         }
-
-        guard let aps = userInfo["aps"] as? Dictionary<String, Any> else { return }
-        guard let alert = aps["alert"] as? Dictionary<String, Any> else { return }
-        guard let body = alert["body"] as? String else { return }
-        guard let title = alert["title"] as? String else { return }
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let myString = formatter.string(from: Date())
-        print(myString)
-        
-        let groupName = getGroupName(groupId: groupid)
-        
-        var aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
-        let dicMessage = ["title": title, "body": body,"created": myString, "group": groupName]
-        aryMessage.insert(dicMessage, at: 0)
-        Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Add Message"), object: nil)
     }
     
     func getGroupName(groupId: String) -> String {

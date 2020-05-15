@@ -226,7 +226,7 @@
                             <outlet property="delegate" destination="tC1-O2-XHb" id="Y3a-ta-sL4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="uzR-rG-wHk" customClass="G"/>
+                    <navigationItem key="navigationItem" id="uzR-rG-wHk"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5Z-tR-DzM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

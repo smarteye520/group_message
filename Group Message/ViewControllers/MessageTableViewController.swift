@@ -38,9 +38,12 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
     }
     
     @IBAction func goGroup(_ sender: Any) {
-        let groupVC = storyboard?.instantiateViewController(withIdentifier:
-            String(describing: GroupTableViewController.self)) as! GroupTableViewController
-        navigationController?.pushViewController(groupVC, animated: true)
+        let deviceToken = Utility.getStringFromUserDefaults(key: DEVICE_TOKEN)
+        if deviceToken != "" {
+            let groupVC = storyboard?.instantiateViewController(withIdentifier:
+                String(describing: GroupTableViewController.self)) as! GroupTableViewController
+            navigationController?.pushViewController(groupVC, animated: true)
+        }
     }
 
     func getMessageData() {
