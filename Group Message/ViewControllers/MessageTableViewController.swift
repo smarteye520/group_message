@@ -3,7 +3,7 @@
 //  group_message
 //
 //  Created by SmartEye on 3/20/20.
-//  Copyright © 2020/Users/smarteye/Development/AYM_Kids/AYM personal. All rights reserved.
+//  Copyright  All rights reserved.
 //
 
 import UIKit
@@ -16,9 +16,6 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let arymessage = [["title": "Welcome", "body": "Welcome joined to this group.", "created":"2020-03-27 16:20", "group": "Adult"], ["title": "Scott", "body": "Scott.\n \n \nBadger Creek closed today due to", "created":"2020-03-26 16:24", "group": "Academy/Select"]]
-//        Utility.saveDictionaryToUserDefaults(value: arymessage, key: USER_MESSAGE)
 
         // Add left navigation button
         self.navigationItem.leftBarButtonItem = self.editButtonItem
@@ -48,6 +45,11 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
 
     func getMessageData() {
         aryMessage = Utility.getDictionaryFromUserDefaults(key: USER_MESSAGE)
+        if aryMessage.count == 0 {
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+        } else {
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+        }
         self.tableView.reloadData()
     }
     
@@ -60,6 +62,14 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
     }
 
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if aryMessage.count == 0 {
+            return tableView.frame.height - 50
+        } else {
+            return 160
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -68,49 +78,75 @@ class MessageTableViewController: UITableViewController, MessageTableViewCellDel
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return aryMessage.count
+        if aryMessage.count == 0 {
+            return 1
+        } else {
+            return aryMessage.count
+        }
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageTableViewCell {
-            let dicMessage = aryMessage[indexPath.row]
-            cell.lblTitle.text = (dicMessage["title"] as? String ?? "")
-            cell.txtMessage.text = (dicMessage["body"] as? String ?? "")
-            cell.lblTime.text = (dicMessage["created"] as? String ?? "")
-            cell.lblSender.text = (dicMessage["group"] as? String ?? "")
-            cell.cellIndex = indexPath.row
-            cell.delegate = self
-            return cell
+        if aryMessage.count == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "NoTableViewCell", for: indexPath) as? NoTableViewCell {
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageTableViewCell {
+                let dicMessage = aryMessage[indexPath.row]
+                cell.lblTitle.text = (dicMessage["title"] as? String ?? "")
+                cell.txtMessage.text = (dicMessage["body"] as? String ?? "")
+                cell.lblTime.text = (dicMessage["created"] as? String ?? "")
+                cell.lblSender.text = (dicMessage["group"] as? String ?? "")
+                cell.cellIndex = indexPath.row
+                cell.delegate = self
+                return cell
+            }
         }
 
         return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dicMessage = aryMessage[indexPath.row]
-        let detailVC = storyboard?.instantiateViewController(withIdentifier:
-            String(describing: DetailViewController.self)) as! DetailViewController
-        detailVC.dicMessage = dicMessage
-        navigationController?.pushViewController(detailVC, animated: true)
+        
+        if aryMessage.count == 0 {
+            return
+        } else {
+            let dicMessage = aryMessage[indexPath.row]
+            let detailVC = storyboard?.instantiateViewController(withIdentifier:
+                String(describing: DetailViewController.self)) as! DetailViewController
+            detailVC.dicMessage = dicMessage
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
 
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        if aryMessage.count == 0 {
+            return false
+        } else {
+            return true
+        }
     }
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.aryMessage.remove(at: indexPath.row)
-            Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        if aryMessage.count != 0 {
+            if editingStyle == .delete {
+                self.aryMessage.remove(at: indexPath.row)
+                Utility.saveDictionaryToUserDefaults(value: aryMessage, key: USER_MESSAGE)
+                
+                if aryMessage.count != 0 {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else {
+                    self.viewWillAppear(true)
+                }
+            } else if editingStyle == .insert {
+                // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            }
+        }
     }
 
 

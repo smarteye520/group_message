@@ -11,6 +11,7 @@
 		0456E21A242BF606004E1951 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0456E218242BF606004E1951 /* Main.storyboard */; };
 		0456E21C242BF608004E1951 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0456E21B242BF608004E1951 /* Assets.xcassets */; };
 		0456E21F242BF608004E1951 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0456E21D242BF608004E1951 /* LaunchScreen.storyboard */; };
+		049D3538246ECD8D0052971C /* NoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D3537246ECD8D0052971C /* NoTableViewCell.swift */; };
 		04A91835242E185400BFEAC1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04A91834242E185400BFEAC1 /* GoogleService-Info.plist */; };
 		04BED1E7242BFF5600966095 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BED1E2242BFF5600966095 /* MessageTableViewController.swift */; };
 		04BED1E8242BFF5600966095 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BED1E3242BFF5600966095 /* GroupTableViewController.swift */; };
@@ -28,6 +29,7 @@
 		0456E21B242BF608004E1951 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0456E21E242BF608004E1951 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0456E220242BF608004E1951 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		049D3537246ECD8D0052971C /* NoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTableViewCell.swift; sourceTree = "<group>"; };
 		04A91834242E185400BFEAC1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04BED1E2242BFF5600966095 /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		04BED1E3242BFF5600966095 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				04BED1E3242BFF5600966095 /* GroupTableViewController.swift */,
 				04BED1E6242BFF5600966095 /* GroupTableViewCell.swift */,
 				04BED1E4242BFF5600966095 /* Utility.swift */,
+				049D3537246ECD8D0052971C /* NoTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049D3538246ECD8D0052971C /* NoTableViewCell.swift in Sources */,
 				04BED1E9242BFF5600966095 /* Utility.swift in Sources */,
 				04BED1E7242BFF5600966095 /* MessageTableViewController.swift in Sources */,
 				0456E215242BF606004E1951 /* AppDelegate.swift in Sources */,
@@ -386,8 +390,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Group Message/Group Message.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = QDK2C82QSW;
 				INFOPLIST_FILE = "Group Message/Info.plist";
@@ -397,7 +401,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.groupmessage;
 				PRODUCT_NAME = CSA_MSG;
-				PROVISIONING_PROFILE_SPECIFIER = Group_Dev_May26;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -409,8 +413,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Group Message/Group Message.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = QDK2C82QSW;
 				INFOPLIST_FILE = "Group Message/Info.plist";
@@ -420,7 +424,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alex.groupmessage;
 				PRODUCT_NAME = CSA_MSG;
-				PROVISIONING_PROFILE_SPECIFIER = Group_Adhoc_May27;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

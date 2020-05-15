@@ -11,13 +11,13 @@
         <!--Messages-->
         <scene sceneID="DC4-yZ-4Cc">
             <objects>
-                <tableViewController id="7M3-gQ-CK5" customClass="MessageTableViewController" customModule="Group_Message" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="7M3-gQ-CK5" customClass="MessageTableViewController" customModule="CSA_MSG" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="F8n-ua-jbb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="159" id="Ouf-dd-T6o" customClass="MessageTableViewCell" customModule="Group_Message" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="159" id="Ouf-dd-T6o" customClass="MessageTableViewCell" customModule="CSA_MSG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="159"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ouf-dd-T6o" id="SWs-wZ-fWp">
@@ -92,6 +92,78 @@
                                     <outlet property="txtMessage" destination="JfE-YN-rrQ" id="NPT-nM-tC8"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoTableViewCell" rowHeight="622" id="cIz-MD-D26" customClass="NoTableViewCell" customModule="CSA_MSG" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="187" width="414" height="622"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cIz-MD-D26" id="j9Z-Q3-DP7">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="622"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Y7-68-bFe">
+                                            <rect key="frame" x="0.0" y="131" width="414" height="360"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_message" translatesAutoresizingMaskIntoConstraints="NO" id="gte-EY-dOT">
+                                                    <rect key="frame" x="8" y="-10" width="398" height="250"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="250" id="zGx-Vw-1uD"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will receive a new message soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4X-CE-8mt">
+                                                    <rect key="frame" x="62" y="344" width="290" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="290" id="8Gc-yu-q1G"/>
+                                                        <constraint firstAttribute="height" constant="22" id="Fzn-1s-f8t"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.14509803921568626" green="0.14901960784313725" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Group" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ka4-WX-C6y">
+                                                    <rect key="frame" x="137" y="294" width="140" height="40"/>
+                                                    <color key="backgroundColor" red="0.1450980392" green="0.14901960780000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="140" id="9Ml-1P-78p"/>
+                                                        <constraint firstAttribute="height" constant="40" id="hmG-P4-sT1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new message?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLm-48-G41">
+                                                    <rect key="frame" x="82" y="250" width="250" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="34" id="mi4-Vz-krK"/>
+                                                        <constraint firstAttribute="width" constant="250" id="wFO-zm-PwE"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                                    <color key="textColor" red="0.1450980392" green="0.14901960780000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstItem="qLm-48-G41" firstAttribute="centerX" secondItem="0Y7-68-bFe" secondAttribute="centerX" id="01u-og-l1S"/>
+                                                <constraint firstItem="r4X-CE-8mt" firstAttribute="top" secondItem="ka4-WX-C6y" secondAttribute="bottom" constant="10" id="57J-ny-ieM"/>
+                                                <constraint firstAttribute="trailing" secondItem="gte-EY-dOT" secondAttribute="trailing" constant="8" id="92N-Si-i8O"/>
+                                                <constraint firstItem="qLm-48-G41" firstAttribute="top" secondItem="gte-EY-dOT" secondAttribute="bottom" constant="10" id="BdU-b4-Y4S"/>
+                                                <constraint firstItem="r4X-CE-8mt" firstAttribute="centerX" secondItem="0Y7-68-bFe" secondAttribute="centerX" id="CtJ-9k-zJ9"/>
+                                                <constraint firstItem="ka4-WX-C6y" firstAttribute="centerX" secondItem="0Y7-68-bFe" secondAttribute="centerX" id="R96-OS-pyA"/>
+                                                <constraint firstItem="ka4-WX-C6y" firstAttribute="top" secondItem="qLm-48-G41" secondAttribute="bottom" constant="10" id="UsO-l1-541"/>
+                                                <constraint firstItem="gte-EY-dOT" firstAttribute="leading" secondItem="0Y7-68-bFe" secondAttribute="leading" constant="8" id="WiZ-JK-aOX"/>
+                                                <constraint firstItem="gte-EY-dOT" firstAttribute="top" secondItem="0Y7-68-bFe" secondAttribute="top" constant="-10" id="erb-3v-Ban"/>
+                                                <constraint firstAttribute="height" constant="360" id="w8h-xh-iFl"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="0Y7-68-bFe" firstAttribute="centerY" secondItem="j9Z-Q3-DP7" secondAttribute="centerY" id="CZa-Ft-YvA"/>
+                                        <constraint firstItem="0Y7-68-bFe" firstAttribute="leading" secondItem="j9Z-Q3-DP7" secondAttribute="leading" id="JoO-ah-7rv"/>
+                                        <constraint firstItem="0Y7-68-bFe" firstAttribute="centerX" secondItem="j9Z-Q3-DP7" secondAttribute="centerX" id="ctp-lT-km0"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="7M3-gQ-CK5" id="S4Q-ii-f4T"/>
@@ -107,13 +179,13 @@
         <!--Group Table View Controller-->
         <scene sceneID="Njk-OB-Owi">
             <objects>
-                <tableViewController storyboardIdentifier="GroupTableViewController" id="tC1-O2-XHb" customClass="GroupTableViewController" customModule="Group_Message" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="GroupTableViewController" id="tC1-O2-XHb" customClass="GroupTableViewController" customModule="CSA_MSG" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="e7z-ks-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupCell" rowHeight="75" id="o04-pd-N0v" customClass="GroupTableViewCell" customModule="Group_Message" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupCell" rowHeight="75" id="o04-pd-N0v" customClass="GroupTableViewCell" customModule="CSA_MSG" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o04-pd-N0v" id="YLY-Xw-7CW">
@@ -163,7 +235,7 @@
         <!--Message-->
         <scene sceneID="mHh-GD-fWD">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="tQc-2i-PJL" customClass="DetailViewController" customModule="Group_Message" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="tQc-2i-PJL" customClass="DetailViewController" customModule="CSA_MSG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mBk-33-bgX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,4 +322,7 @@
             <point key="canvasLocation" x="-246" y="138"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="no_message" width="377" height="224"/>
+    </resources>
 </document>
